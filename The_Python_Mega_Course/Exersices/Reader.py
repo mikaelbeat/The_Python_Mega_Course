@@ -21,7 +21,3 @@ data.close()
 content = content.splitlines()
 for value in content:
     print(len(value))
-    
-    
-    
-2 - 50
