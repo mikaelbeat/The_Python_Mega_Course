@@ -7,4 +7,4 @@ def calculate(value1, value2):
         return "Both values must be integer"
     
 
-print(calculate(1, "G"))
+print(calculate(1, 5))
