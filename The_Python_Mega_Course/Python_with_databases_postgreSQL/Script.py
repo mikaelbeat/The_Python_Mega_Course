@@ -1,19 +1,10 @@
 import psycopg2
-import os.path
-from os import path
-
-database = "database.db"
 
 
-def check_database():
-    if path.exists(database):
-        print(f"Database {database} already found!\n")
-    else:
-        print(f"Created database {database}.\n")
-        
+database = "dbname='test_database' user='postgres' password='admin' host='localhost' port='5432'"
+
 
 def create_table():
-    check_database()
     conn = psycopg2.connect(database)
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS store (item TEXT, quantity INTEGER, price REAL)")
@@ -24,10 +15,10 @@ def create_table():
 def insert_to_table(item, quantity, price):
     conn = psycopg2.connect(database)
     cur = conn.cursor()
-    cur.execute("INSERT INTO store VALUES (?, ?, ?)", (item, quantity, price))
+    cur.execute("INSERT INTO store VALUES (%s, %s, %s)", (item, quantity, price))
     conn.commit()
     conn.close()
-    print(f"Inserted to {database} new item {item}, quantity {quantity}, price {price}.\n")
+    print(f"Inserted to database new item {item}, quantity {quantity}, price {price}.\n")
     
     
 def view_database():
@@ -42,7 +33,8 @@ def view_database():
 def delete_item(item):
     conn = psycopg2.connect(database)
     cur = conn.cursor()
-    cur.execute("DELETE FROM store WHERE item = ?", (item,))
+    cur.execute("DELETE FROM store WHERE item = %s", (item,))
+    print(f"Deleted {item} from database.")
     conn.commit()
     conn.close()
     
@@ -50,16 +42,25 @@ def delete_item(item):
 def update_item(quantity, price, item):
     conn = psycopg2.connect(database)
     cur = conn.cursor()
-    cur.execute("UPDATE store SET quantity = ?, price = ? WHERE item = ?", (quantity, price, item))
+    cur.execute("UPDATE store SET quantity = %s, price = %s WHERE item = %s", (quantity, price, item))
     conn.commit()
     conn.close()
     
     
     
 create_table()
-#insert_to_table("Wine Glass", 20, 7.5)
+#insert_to_table("Karambola", 50, 4.5)
 print(view_database())
 #delete_item("Wine Glass")
 print(view_database())
-update_item(60, 2.3, "Coffee cup")
+update_item(40, 2.3, "Karambola")
 print(view_database())
+
+
+
+
+
+
+
+
+
