@@ -51,11 +51,11 @@ def update(id, title, author, year, isbn):
     conn.close()
     
     
-connect()
-print(view())
+#connect()
+#print(view())
 #insert("The earth", "John Sith", 1970, 540393593)
 #delete(2)
-print(view())
+#print(view())
 #print(search(year=1981))
 #update(2, "The Earth", "John Smith", 1970, 540393593)
-print(view())
+#print(view())
