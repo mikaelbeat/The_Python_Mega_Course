@@ -16,5 +16,5 @@ def merger(files):
         for filename in files:
             with open(filename, "r") as read_file:
                 file.write(read_file.read() + "\n")
-
+ 
 merger(files)
